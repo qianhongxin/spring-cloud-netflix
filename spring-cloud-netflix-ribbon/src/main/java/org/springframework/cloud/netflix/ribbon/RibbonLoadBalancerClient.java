@@ -136,6 +136,7 @@ public class RibbonLoadBalancerClient implements LoadBalancerClient {
 			throw new IllegalStateException("No instances available for " + serviceId);
 		}
 
+		// 获取serviceId对应的Spring的RibbonLoadBalancerContext容器
 		RibbonLoadBalancerContext context = this.clientFactory
 				.getLoadBalancerContext(serviceId);
 		RibbonStatsRecorder statsRecorder = new RibbonStatsRecorder(context, server);

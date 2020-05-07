@@ -21,7 +21,7 @@
 	</scm>
 	<properties>
 		<bintray.package>netflix</bintray.package>
-		<spring-cloud-commons.version>2.2.3.BUILD-SNAPSHOT</spring-cloud-commons.version>
+		<spring-cloud-commons.version>2.2.2.RELEASE</spring-cloud-commons.version>
 		<spring-cloud-config.version>2.2.3.BUILD-SNAPSHOT</spring-cloud-config.version>
 		<spring-cloud-stream.version>Horsham.SR3</spring-cloud-stream.version>
 		<!-- Has to be a stable version (not one that depends on this version of netflix): -->
@@ -190,7 +190,7 @@
 		<module>spring-cloud-netflix-dependencies</module>
 		<module>spring-cloud-netflix-archaius</module>
 		<!-- Not part of the reactor build: build and deploy separately -->
-		<!--module>spring-cloud-netflix-hystrix-contract</module-->
+		<module>spring-cloud-netflix-hystrix-contract</module
 		<module>spring-cloud-netflix-core</module>
 		<module>spring-cloud-netflix-concurrency-limits</module>
 		<module>spring-cloud-netflix-hystrix-dashboard</module>
