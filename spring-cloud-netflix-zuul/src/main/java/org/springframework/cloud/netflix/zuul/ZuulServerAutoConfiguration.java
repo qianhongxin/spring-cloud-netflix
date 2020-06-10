@@ -242,6 +242,8 @@ public class ZuulServerAutoConfiguration {
 				TracerFactory tracerFactory) {
 			FilterLoader filterLoader = FilterLoader.getInstance();
 			FilterRegistry filterRegistry = FilterRegistry.instance();
+			// spring cloud自定义的filter加载完后，执行这个
+			// 将filters加入 filterRegistry 中
 			return new ZuulFilterInitializer(this.filters, counterFactory, tracerFactory,
 					filterLoader, filterRegistry);
 		}
