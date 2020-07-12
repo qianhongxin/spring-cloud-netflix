@@ -1,0 +1,18 @@
+spring cloud commons项目：
+    spring-cloud-commons：
+        该模块是spring cloud的公共依赖模块。所以spring cloud提出到了一个common项目中。sca，scn，spring cloud consule都可以依赖使用
+    spring-cloud-loadbalancer
+        该模块是后期为统一负载均衡做的抽象
+    spinrg-cloud-context
+        该模块是spring cloud应用的application context
+    需要依赖spring等项目
+
+spring cloud netflix项目：
+    该项目是spring cloud整合netflix的ribbon，eureka，hystrix，zuul提供的。需要依赖spring cloud commons项目
+
+spring cloud open feign项目：
+    该项目是spring cloud 整合feign提供的。同时需要依赖spring cloud netflix项目。其实微服务开发用spring cloud netflix就可以了，如果用了spring cloud open feign，
+    会对sca的继续包装，应用的使用方式可能会修改下，比如之前是@LoadBalancer+Resttemplate，现在就是@FeignClient就可以了等
+
+spring cloud alibaba项目：
+    该项目是spring cloud 整合alibaba的微服务相关组件提供的，需要依赖spring cloud commons项目
