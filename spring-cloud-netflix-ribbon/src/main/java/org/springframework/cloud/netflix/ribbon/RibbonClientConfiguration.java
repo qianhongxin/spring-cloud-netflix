@@ -95,6 +95,7 @@ public class RibbonClientConfiguration {
 	@Autowired
 	private PropertiesFactory propertiesFactory;
 
+	// ribbon需要的配置信息
 	@Bean
 	@ConditionalOnMissingBean
 	public IClientConfig ribbonClientConfig() {
@@ -106,6 +107,7 @@ public class RibbonClientConfiguration {
 		return config;
 	}
 
+	// 默认用ZoneAvoidanceRule负载均衡算法
 	@Bean
 	@ConditionalOnMissingBean
 	public IRule ribbonRule(IClientConfig config) {
@@ -117,6 +119,7 @@ public class RibbonClientConfiguration {
 		return rule;
 	}
 
+	// 默认用的DummyPing，即利用eureka client来处理服务存活的判断
 	@Bean
 	@ConditionalOnMissingBean
 	public IPing ribbonPing(IClientConfig config) {
@@ -126,6 +129,7 @@ public class RibbonClientConfiguration {
 		return new DummyPing();
 	}
 
+	// 读取我们手动配置的server list
 	@Bean
 	@ConditionalOnMissingBean
 	@SuppressWarnings("unchecked")
@@ -138,17 +142,29 @@ public class RibbonClientConfiguration {
 		return serverList;
 	}
 
+	// server 列表更新器
 	@Bean
 	@ConditionalOnMissingBean
 	public ServerListUpdater ribbonServerListUpdater(IClientConfig config) {
 		return new PollingServerListUpdater(config);
 	}
 
+	// spring cloud 整合 ribbon 时默认使用的负载均衡器
 	@Bean
 	@ConditionalOnMissingBean
-	public ILoadBalancer ribbonLoadBalancer(IClientConfig config,
-			ServerList<Server> serverList, ServerListFilter<Server> serverListFilter,
-			IRule rule, IPing ping, ServerListUpdater serverListUpdater) {
+	public ILoadBalancer ribbonLoadBalancer(
+			// ribbon客户端配合
+			IClientConfig config,
+			// 服务列表
+			ServerList<Server> serverList,
+			// 服务列表过滤器组件
+			ServerListFilter<Server> serverListFilter,
+			// 负载均衡算法
+			IRule rule,
+			// 服务存活ping组件
+			IPing ping,
+			// 服务列表更新组件
+			ServerListUpdater serverListUpdater) {
 		if (this.propertiesFactory.isSet(ILoadBalancer.class, name)) {
 			return this.propertiesFactory.get(ILoadBalancer.class, config, name);
 		}
