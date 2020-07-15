@@ -28,7 +28,7 @@ import com.netflix.zuul.context.RequestContext;
 /**
  * @author Craig Andrews
  */
-// zuul启动入口
+// zuul访问入口
 public class ZuulServletFilter extends com.netflix.zuul.filters.ZuulServletFilter {
 
 	@Override
