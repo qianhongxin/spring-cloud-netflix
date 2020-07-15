@@ -218,6 +218,7 @@ public class ZuulProperties {
 		}
 	}
 
+	// 返回的path是/zuul/*/*,即拦截所有请求
 	public String getServletPattern() {
 		String path = this.servletPath;
 		if (!path.startsWith("/")) {

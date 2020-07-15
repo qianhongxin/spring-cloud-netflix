@@ -156,7 +156,7 @@ public class ZuulServerAutoConfiguration {
 	@ConditionalOnMissingBean(name = "zuulServlet")
 	@ConditionalOnProperty(name = "zuul.use-filter", havingValue = "false",
 			matchIfMissing = true)
-	// spring cloud zuul 请求拦截入口
+	// 配置servlet 放入springboot的web服务器中 作为 spring cloud zuul 请求拦截入口
 	public ServletRegistrationBean zuulServlet() {
 		ServletRegistrationBean<ZuulServlet> servlet = new ServletRegistrationBean<>(
 				new ZuulServlet(), this.zuulProperties.getServletPattern());

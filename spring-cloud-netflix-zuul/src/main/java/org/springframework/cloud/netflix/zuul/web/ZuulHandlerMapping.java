@@ -42,12 +42,16 @@ import org.springframework.web.servlet.handler.AbstractUrlHandlerMapping;
  */
 public class ZuulHandlerMapping extends AbstractUrlHandlerMapping {
 
+	// zuul过滤器路由
 	private final RouteLocator routeLocator;
 
+	// 保存zuulController
 	private final ZuulController zuul;
 
+	// 保存全局错误控制器
 	private ErrorController errorController;
 
+	// 路径匹配
 	private PathMatcher pathMatcher = new AntPathMatcher();
 
 	private volatile boolean dirty = true;
@@ -55,6 +59,8 @@ public class ZuulHandlerMapping extends AbstractUrlHandlerMapping {
 	public ZuulHandlerMapping(RouteLocator routeLocator, ZuulController zuul) {
 		this.routeLocator = routeLocator;
 		this.zuul = zuul;
+		// springmvc中是升序排序的，所以这个mapping排在第一位，getHandler时先执行他。
+		// 这里定义-200就是想排在第一位
 		setOrder(-200);
 	}
 
