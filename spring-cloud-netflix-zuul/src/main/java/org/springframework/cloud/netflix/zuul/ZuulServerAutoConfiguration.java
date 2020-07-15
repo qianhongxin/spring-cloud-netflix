@@ -156,6 +156,7 @@ public class ZuulServerAutoConfiguration {
 	@ConditionalOnMissingBean(name = "zuulServlet")
 	@ConditionalOnProperty(name = "zuul.use-filter", havingValue = "false",
 			matchIfMissing = true)
+	// spring cloud zuul 请求拦截入口
 	public ServletRegistrationBean zuulServlet() {
 		ServletRegistrationBean<ZuulServlet> servlet = new ServletRegistrationBean<>(
 				new ZuulServlet(), this.zuulProperties.getServletPattern());
@@ -169,6 +170,7 @@ public class ZuulServerAutoConfiguration {
 	@ConditionalOnMissingBean(name = "zuulServletFilter")
 	@ConditionalOnProperty(name = "zuul.use-filter", havingValue = "true",
 			matchIfMissing = false)
+	// 该filter未被使用
 	public FilterRegistrationBean zuulServletFilter() {
 		final FilterRegistrationBean<ZuulServletFilter> filterRegistration = new FilterRegistrationBean<>();
 		filterRegistration.setUrlPatterns(
