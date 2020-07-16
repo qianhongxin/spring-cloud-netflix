@@ -99,6 +99,8 @@ public class FormBodyWrapperFilter extends ZuulFilter {
 		// Only use this filter for form data and only for multipart data in a
 		// DispatcherServlet handler
 		try {
+			// 如果请求的MediaTyp是APPLICATION_FORM_URLENCODED或MULTIPART_FORM_DATA类型，改过滤器才会执行，否则不执行。
+			// 所以一般我们的请求都不是这种类型，所以一般不会执行
 			MediaType mediaType = MediaType.valueOf(contentType);
 			return MediaType.APPLICATION_FORM_URLENCODED.includes(mediaType)
 					|| (isDispatcherServletRequest(request)

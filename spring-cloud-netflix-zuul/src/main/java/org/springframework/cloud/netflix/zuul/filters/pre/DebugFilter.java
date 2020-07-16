@@ -63,6 +63,9 @@ public class DebugFilter extends ZuulFilter {
 
 	@Override
 	public Object run() {
+		// 开启debug的开关配置
+		// 你必须在http请求中加入一个参数，debug=true，然后才会执行DebugFilter，
+		// 这个DebugFilter其实就是打开几个debug的标识，然后在后面的运行中会打印一些debug的日志
 		RequestContext ctx = RequestContext.getCurrentContext();
 		ctx.setDebugRouting(true);
 		ctx.setDebugRequest(true);

@@ -215,20 +215,26 @@ public class SimpleHostRoutingFilter extends ZuulFilter
 				&& RequestContext.getCurrentContext().sendZuulResponse();
 	}
 
+	// 请求指定url的
 	@Override
 	public Object run() {
 		RequestContext context = RequestContext.getCurrentContext();
 		HttpServletRequest request = context.getRequest();
+		// 获取请求头
 		MultiValueMap<String, String> headers = this.helper
 				.buildZuulRequestHeaders(request);
+		// 获取请求参数
 		MultiValueMap<String, String> params = this.helper
 				.buildZuulRequestQueryParams(request);
+		// 获取请求方法 get post put delete等
 		String verb = getVerb(request);
+		// 获取requestbody
 		InputStream requestEntity = getRequestBody(request);
 		if (getContentLength(request) < 0) {
 			context.setChunkedRequestBody();
 		}
 
+		// 构造请求uri
 		String uri = this.helper.buildZuulRequestURI(request);
 		this.helper.addIgnoredHeaders();
 
@@ -338,6 +344,7 @@ public class SimpleHostRoutingFilter extends ZuulFilter
 		try {
 			log.debug(httpHost.getHostName() + " " + httpHost.getPort() + " "
 					+ httpHost.getSchemeName());
+			// 发出请求，拿到响应
 			CloseableHttpResponse zuulResponse = forwardRequest(httpclient, httpHost,
 					httpRequest);
 			this.helper.appendDebug(info, zuulResponse.getStatusLine().getStatusCode(),

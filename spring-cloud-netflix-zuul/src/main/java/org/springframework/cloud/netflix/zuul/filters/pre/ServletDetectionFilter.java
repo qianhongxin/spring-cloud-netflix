@@ -62,6 +62,7 @@ public class ServletDetectionFilter extends ZuulFilter {
 		return true;
 	}
 
+	// 如果request是HttpServletRequestWrapper类型，则给ctx设置isDispatcherServletRequest为false，否则为true
 	@Override
 	public Object run() {
 		RequestContext ctx = RequestContext.getCurrentContext();

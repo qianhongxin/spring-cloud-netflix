@@ -16,3 +16,8 @@ spring cloud open feign项目：
 
 spring cloud alibaba项目：
     该项目是spring cloud 整合alibaba的微服务相关组件提供的，需要依赖spring cloud commons项目
+
+
+每个子模块下，都有对应的从application等地方加载配置的configuration
+
+spring cloud zuul:发请求时没用fegin，复杂的利用ribbon+hystrix

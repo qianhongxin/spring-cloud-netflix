@@ -36,6 +36,9 @@ class Servlet30RequestWrapper extends HttpServletRequestWrapper {
 	 * There is a bug in zuul 1.2.2 where HttpServletRequestWrapper.getRequest returns a
 	 * wrapped request rather than the raw one.
 	 * @return the original HttpServletRequest
+	 *
+	 * 这里是修改zuul1.2.2的HttpServletRequestWrapper.getRequest返回的不是原生的HttpServletRequest的bug
+	 * 。所以这里重新弄了一个包装类，存着原生的HttpServletRequest
 	 */
 	@Override
 	public HttpServletRequest getRequest() {

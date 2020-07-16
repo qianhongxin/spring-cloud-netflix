@@ -73,6 +73,7 @@ public class Servlet30WrapperFilter extends ZuulFilter {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();
 		if (request instanceof HttpServletRequestWrapper) {
+			// 如果request是HttpServletRequestWrapper类型，则通过反射拿到原生的request，用Servlet30RequestWrapper包装下，再放入ctx中
 			request = (HttpServletRequest) ReflectionUtils.getField(this.requestField,
 					request);
 			ctx.setRequest(new Servlet30RequestWrapper(request));

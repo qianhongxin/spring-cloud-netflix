@@ -83,6 +83,7 @@ import static java.util.Collections.emptyList;
  * @author Biju Kunjummen
  */
 @Configuration(proxyBeanMethods = false)
+// 加载zuul配置
 @EnableConfigurationProperties({ ZuulProperties.class })
 @ConditionalOnClass({ ZuulServlet.class, ZuulServletFilter.class })
 @ConditionalOnBean(ZuulServerMarkerConfiguration.Marker.class)
@@ -112,6 +113,7 @@ public class ZuulServerAutoConfiguration {
 
 	@Bean
 	@Primary
+	// 将其他的RouteLocator的bean组合起来传到这里，构造CompositeRouteLocator，最终CompositeRouteLocator提供功能
 	public CompositeRouteLocator primaryRouteLocator(
 			Collection<RouteLocator> routeLocators) {
 		return new CompositeRouteLocator(routeLocators);

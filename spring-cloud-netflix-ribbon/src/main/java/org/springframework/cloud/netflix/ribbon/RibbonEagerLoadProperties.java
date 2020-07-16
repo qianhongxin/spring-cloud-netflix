@@ -26,6 +26,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author Biju Kunjummen
  */
+// 加载ribbon的配置
 @ConfigurationProperties(prefix = "ribbon.eager-load")
 public class RibbonEagerLoadProperties {
 

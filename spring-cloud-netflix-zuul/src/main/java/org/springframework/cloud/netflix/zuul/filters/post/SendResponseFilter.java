@@ -117,6 +117,7 @@ public class SendResponseFilter extends ZuulFilter {
 		return null;
 	}
 
+	// 响应写给浏览器
 	private void writeResponse() throws Exception {
 		RequestContext context = RequestContext.getCurrentContext();
 		// there is no body to send
@@ -130,6 +131,7 @@ public class SendResponseFilter extends ZuulFilter {
 		}
 
 		String servletResponseContentEncoding = getResponseContentEncoding(context);
+		// 拿到HttpServletResponse的输出流，该流针对的是浏览器的输出流，会被tomcat发给浏览器
 		OutputStream outStream = servletResponse.getOutputStream();
 		InputStream is = null;
 		try {
@@ -159,6 +161,7 @@ public class SendResponseFilter extends ZuulFilter {
 			}
 
 			if (is != null) {
+				// 写会浏览器
 				writeResponse(is, outStream);
 			}
 		}

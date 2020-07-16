@@ -71,6 +71,7 @@ public class SendErrorFilter extends ZuulFilter {
 				&& !ctx.getBoolean(SEND_ERROR_FILTER_RAN, false);
 	}
 
+	// 转发到error处理逻辑
 	@Override
 	public Object run() {
 		try {

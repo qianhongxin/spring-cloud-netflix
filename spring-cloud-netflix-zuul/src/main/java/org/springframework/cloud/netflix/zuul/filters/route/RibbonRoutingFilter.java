@@ -110,6 +110,7 @@ public class RibbonRoutingFilter extends ZuulFilter {
 				&& ctx.sendZuulResponse());
 	}
 
+	// 底层根据serviceId，利用ribbon拿到一个url，然后调用指定的服务
 	@Override
 	public Object run() {
 		RequestContext context = RequestContext.getCurrentContext();
@@ -128,6 +129,7 @@ public class RibbonRoutingFilter extends ZuulFilter {
 		}
 	}
 
+	// 根据 RequestContext 创建 RibbonCommandContext
 	protected RibbonCommandContext buildCommandContext(RequestContext context) {
 		HttpServletRequest request = context.getRequest();
 
@@ -162,8 +164,10 @@ public class RibbonRoutingFilter extends ZuulFilter {
 				context.getUri(), context.getHeaders(), context.getParams(),
 				context.getRequestEntity());
 
+		// 根据context创建command
 		RibbonCommand command = this.ribbonCommandFactory.create(context);
 		try {
+			// 发出请求，拿到响应
 			ClientHttpResponse response = command.execute();
 			this.helper.appendDebug(info, response.getRawStatusCode(),
 					response.getHeaders());

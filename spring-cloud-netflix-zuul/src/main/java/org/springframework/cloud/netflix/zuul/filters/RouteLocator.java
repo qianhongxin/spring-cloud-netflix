@@ -28,12 +28,14 @@ public interface RouteLocator {
 	 * Ignored route paths (or patterns), if any.
 	 * @return {@link Collection} of ignored paths
 	 */
+	// 忽略的路径
 	Collection<String> getIgnoredPaths();
 
 	/**
 	 * A map of route path (pattern) to location (e.g. service id or URL).
 	 * @return {@link List} of routes
 	 */
+	// 获取配置文件中，所有的配置的路由规则
 	List<Route> getRoutes();
 
 	/**
@@ -41,6 +43,7 @@ public interface RouteLocator {
 	 * @param path used to match the {@link Route}
 	 * @return matching {@link Route} based on the provided path
 	 */
+	// 根据请求URI，去匹配application.yml文件中我们配置的路由规则，将路由规则封装成一个Route
 	Route getMatchingRoute(String path);
 
 }

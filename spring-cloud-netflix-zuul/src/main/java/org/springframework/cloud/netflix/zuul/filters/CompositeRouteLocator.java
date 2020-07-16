@@ -29,6 +29,7 @@ import org.springframework.util.Assert;
  * @author Johannes Edmeier
  *
  */
+// 组合多个路由选择器的选择器
 public class CompositeRouteLocator implements RefreshableRouteLocator {
 
 	private final Collection<? extends RouteLocator> routeLocators;

@@ -46,6 +46,7 @@ import static com.netflix.hystrix.HystrixCommandProperties.ExecutionIsolationStr
  * @author Gregor Zurowski
  */
 @ConfigurationProperties("zuul")
+// 加载application等配置文件中的zuul开头的配置
 public class ZuulProperties {
 
 	/**
@@ -218,7 +219,7 @@ public class ZuulProperties {
 		}
 	}
 
-	// 返回的path是/zuul/*/*,即拦截所有请求
+	// 返回的path是/zuul/*/*,即拦截/zuul下的所有请求
 	public String getServletPattern() {
 		String path = this.servletPath;
 		if (!path.startsWith("/")) {

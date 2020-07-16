@@ -56,15 +56,18 @@ public class SendForwardFilter extends ZuulFilter {
 				&& !ctx.getBoolean(SEND_FORWARD_FILTER_RAN, false);
 	}
 
+	// 嘉兴请求转发到zuul网关服务自己的一个接口上去，接口名就是FORWARD_TO_KEY指定路径
 	@Override
 	public Object run() {
 		try {
 			RequestContext ctx = RequestContext.getCurrentContext();
+			// 获取转发路径
 			String path = (String) ctx.get(FORWARD_TO_KEY);
 			RequestDispatcher dispatcher = ctx.getRequest().getRequestDispatcher(path);
 			if (dispatcher != null) {
 				ctx.set(SEND_FORWARD_FILTER_RAN, true);
 				if (!ctx.getResponse().isCommitted()) {
+					// 请求转发
 					dispatcher.forward(ctx.getRequest(), ctx.getResponse());
 					ctx.getResponse().flushBuffer();
 				}

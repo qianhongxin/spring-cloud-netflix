@@ -39,6 +39,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Dave Syer
  */
+// 基础的的路由选择器
 public class SimpleRouteLocator implements RouteLocator, Ordered {
 
 	private static final Log log = LogFactory.getLog(SimpleRouteLocator.class);
@@ -53,6 +54,7 @@ public class SimpleRouteLocator implements RouteLocator, Ordered {
 
 	private String zuulServletPath;
 
+	//
 	private AtomicReference<Map<String, ZuulRoute>> routes = new AtomicReference<>();
 
 	private int order = DEFAULT_ORDER;

@@ -41,6 +41,7 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
  *
  * @author Biju Kunjummen
  */
+// 这个filter默认情况下没跑，看看说响应结果是否是要进行请求重定向，如果是的话才会执行，但是这里默认一般不是
 public class LocationRewriteFilter extends ZuulFilter {
 
 	private final UrlPathHelper urlPathHelper = new UrlPathHelper();

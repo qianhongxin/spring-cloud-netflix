@@ -40,6 +40,9 @@ import org.springframework.web.servlet.handler.AbstractUrlHandlerMapping;
  * @author João Salavessa
  * @author Biju Kunjummen
  */
+// 原生的zuulServlet只能拦截/zuul的请求，对调用方的使用的url有限制，比如必须加/zuul开头，不方便
+// 所以这里重新扩展springmvc接口，定义了ZuulHandlerMapping和ZuulController，根据zuulProperties的配置路径来拦截请求url，然后最终调用
+// zuulServlet中执行，调用方的访问路径可以根据配置文件中的来，可以约定，方便
 public class ZuulHandlerMapping extends AbstractUrlHandlerMapping {
 
 	// zuul过滤器路由
@@ -101,6 +104,7 @@ public class ZuulHandlerMapping extends AbstractUrlHandlerMapping {
 			return null;
 		}
 		if (this.dirty) {
+			// double check保证并发安全，可见性，有序性，原子性
 			synchronized (this) {
 				if (this.dirty) {
 					registerHandlers();
@@ -123,11 +127,13 @@ public class ZuulHandlerMapping extends AbstractUrlHandlerMapping {
 	}
 
 	private void registerHandlers() {
+		// 获取配置文件中，所有的配置的路由规则
 		Collection<Route> routes = this.routeLocator.getRoutes();
 		if (routes.isEmpty()) {
 			this.logger.warn("No routes found from RouteLocator");
 		}
 		else {
+			// 将routes的所有路径的处理器都设置成ZuulController
 			for (Route route : routes) {
 				registerHandler(route.getFullPath(), this.zuul);
 			}

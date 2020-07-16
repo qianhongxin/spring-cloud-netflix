@@ -68,6 +68,17 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
  * @author Adrian Ivan
  * @author Jacques-Etienne Beaudet
  * @author Durigon Durigon
+ *
+ * 首先是解析了一下请求url，拿到了我们请求的url地址，/demo/ServiceB/user/sayHello/1
+ *
+ * 		final String requestURI = this.urlPathHelper.getPathWithinApplication(ctx.getRequest());
+ * 		Route route = this.routeLocator.getMatchingRoute(requestURI);
+ *
+ * 非常关键，他其实就是根据我们的请求url地址，去匹配我们的application.yml中的路由规则的配置，然后拿到了请求url对应的路由规则
+ *
+ * Route{id='ServiceB', fullPath='/demo/ServiceB/user/sayHello/1', path='/ServiceB/user/sayHello/1', location='ServiceB', prefix='/demo', retryable=false, sensitiveHeaders=[], customSensitiveHeaders=false, prefixStripped=true}
+ *
+ * zuul最核心的逻辑，在这个PreDecoration中就完成了，当然了，其实解析请求uri，以及完成请求uri和application.yml中的路由规则的匹配的事儿，是zuul最最核心的事儿，但是这个里面的源码是比较琐碎没任何技术含量的源码
  */
 public class PreDecorationFilter extends ZuulFilter {
 
@@ -130,6 +141,7 @@ public class PreDecorationFilter extends ZuulFilter {
 				.getPathWithinApplication(ctx.getRequest());
 		Route route = this.routeLocator.getMatchingRoute(requestURI);
 		if (route != null) {
+			// 将route中的一些值，处理下放入RequestContext中，供后续的filter使用
 			String location = route.getLocation();
 			if (location != null) {
 				ctx.put(REQUEST_URI_KEY, route.getPath());
