@@ -62,7 +62,7 @@ public class ZuulHandlerMapping extends AbstractUrlHandlerMapping {
 	public ZuulHandlerMapping(RouteLocator routeLocator, ZuulController zuul) {
 		this.routeLocator = routeLocator;
 		this.zuul = zuul;
-		// springmvc中是升序排序的，所以这个mapping排在第一位，getHandler时先执行他。
+		// springmvc中是升序排序的，一般这个mapping排在第二位，getHandler时先执行他。
 		// 这里定义-200就是想排在第一位
 		setOrder(-200);
 	}
